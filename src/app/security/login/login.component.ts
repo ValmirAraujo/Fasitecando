@@ -48,8 +48,9 @@ export class LoginComponent implements OnInit {
       let login: Login = this.formulario.value;
       this.reqService.login(login).subscribe(res => {
         console.log("res: ", res)
-      }, erro => console.log("aqui é catch: ", erro));
-      this.router.navigate(['/paginas/users']);
+        this.router.navigate(['/paginas/users']);
+      },
+        erro => alert("Usuário não encontrado!"));
     }
   }
 

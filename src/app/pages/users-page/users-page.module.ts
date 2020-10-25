@@ -10,8 +10,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { UserUpdateComponent } from 'src/app/components/user-update/user-update.component';
+import { UserComponent } from 'src/app/components/user-update/user.component';
 import { ReqService } from 'src/app/services/ReqService';
+import { SingleUserService } from 'src/app/services/SingleUserService';
 import { UsersPageRoutingModule } from './users-page-routing.module';
 import { UsersPageComponent } from './users-page.component';
 import { UsersRegisterComponent } from './users-register/users-register.component';
@@ -23,7 +24,7 @@ import { UsersSearchComponent } from './users-search/users-search.component';
     UsersPageComponent,
     UsersRegisterComponent,
     UsersSearchComponent,
-    UserUpdateComponent
+    UserComponent
   ],
   imports: [
     CommonModule,
@@ -41,10 +42,11 @@ import { UsersSearchComponent } from './users-search/users-search.component';
     MatDialogModule
   ],
   providers: [
-    ReqService
+    ReqService,
+    SingleUserService
   ],
   entryComponents: [
-    UserUpdateComponent
+    UserComponent
   ]
 })
 export class UsersPageModule { }

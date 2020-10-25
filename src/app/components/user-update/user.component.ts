@@ -5,15 +5,15 @@ import { UserSearch } from 'src/app/objects/UserSearch';
 
 @Component({
   selector: 'app-user-update',
-  templateUrl: './user-update.component.html',
-  styleUrls: ['./user-update.component.css']
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class UserUpdateComponent implements OnInit {
+export class UserComponent implements OnInit {
 
   registerForm: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<UserUpdateComponent>,
+    public dialogRef: MatDialogRef<UserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: UserSearch,
     public fb: FormBuilder,
   ) { }

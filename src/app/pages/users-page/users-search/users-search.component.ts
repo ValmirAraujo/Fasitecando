@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { UserUpdateComponent } from 'src/app/components/user-update/user-update.component';
+import { Router } from '@angular/router';
+import { UserComponent } from 'src/app/components/user-update/user.component';
+import { Company } from 'src/app/objects/Company';
 import { UserSearch } from 'src/app/objects/UserSearch';
 import { ReqService } from 'src/app/services/ReqService';
+import { SingleUserService } from 'src/app/services/SingleUserService';
 
 @Component({
   selector: 'app-users-search',
@@ -15,33 +18,78 @@ export class UsersSearchComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
+  nrPage: number = 1;
+  ctrlProximo: boolean = false
   animal: string;
   name: string;
   form: FormGroup;
   searchControl = new FormControl();
-  users: UserSearch[] = [
-    { id: 7, email: 'michael.lawson@reqres.in', first_name: "Michael", last_name: 'Lawson', avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg" },
-    { id: 8, email: 'lindsay.ferguson@reqres.in', first_name: "Lindsay", last_name: 'Ferguson', avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/araa3185/128.jpg" },
-  ];
+  users: UserSearch[] = [];
+  company: Company;
 
   constructor(
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
     private reqService: ReqService,
+    private singleUserService: SingleUserService,
+    private router: Router
   ) {
-    this.form = new FormGroup({
-      food: this.searchControl,
-    });
   }
 
   ngOnInit(): void {
-    this.reqService.listUsers(1).subscribe(res => {
-      console.log("lis: ", res);
+    this.listUsers(this.nrPage);
+  }
+
+  singleUser() {
+    if (this.searchControl.value) {
+      this.singleUserService.singleUser(this.searchControl.value).subscribe(resposta => {
+        this.users = [];
+        let single: UserSearch = resposta.data;
+        this.company = resposta.ad;
+        this.users.push(single);
+      }, erro => alert("Nenhum usuário não encontrado!"))
+    } else {
+      this.nrPage = 1;
+      this.listUsers(this.nrPage);
+    }
+
+  }
+
+  proxima() {
+    this.nrPage += 1
+    this.listUsers(this.nrPage);
+  }
+
+  anterior() {
+    this.nrPage -= 1
+    this.listUsers(this.nrPage);
+  }
+
+  listUsers(numero: number) {
+    this.reqService.listUsers(numero).subscribe(res => {
+      if (res.data.length > 0) {
+        this.users = res.data;
+        this.company = res.ad;
+        this.ctrlProximo = false;
+      } else {
+        this.nrPage -= 1;
+        this.ctrlProximo = true
+      }
     })
   }
 
-  openDialog(item: UserSearch): void {
-    const dialogRef = this.dialog.open(UserUpdateComponent, { width: '250px', data: item });
+  fazerLogout() {
+    this.router.navigateByUrl('');
+  }
+
+  gravarDialog(): void {
+    const dialogRef = this.dialog.open(UserComponent);
+    dialogRef.afterClosed().subscribe(result => { });
+  }
+
+
+  atualizarDialog(item: UserSearch): void {
+    const dialogRef = this.dialog.open(UserComponent, { width: '250px', data: item });
 
     dialogRef.afterClosed().subscribe(result => { });
   }
@@ -54,8 +102,8 @@ export class UsersSearchComponent implements OnInit {
       this.users.splice(indice, 1);
       this.abrirSnackBar();
     }
-
   }
+
   abrirSnackBar() {
     this._snackBar.open('Usuário excluído!', '', {
       duration: 3000,

@@ -12,3 +12,22 @@ body {
     font-size: 14px;
     width: 100%;
 }
+
+#search .mat-form-field-appearance-outline .mat-form-field-outline {
+    display: flex;
+    background-color: #ffffff;
+    color: black;
+    border-radius: 5px;
+}
+
+#search .mat-form-field-appearance-outline .mat-select-arrow-wrapper  {
+    color: black;
+}
+
+#search .mat-select-placeholder {
+    color: black;
+}
+
+#search .mat-select-value{
+    color: black;
+}
