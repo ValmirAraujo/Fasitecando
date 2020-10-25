@@ -11,8 +11,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserComponent } from 'src/app/components/user-update/user.component';
+import { CreateService } from 'src/app/services/CreateService';
 import { ReqService } from 'src/app/services/ReqService';
 import { SingleUserService } from 'src/app/services/SingleUserService';
+import { UpdateService } from 'src/app/services/UpdateService';
 import { UsersPageRoutingModule } from './users-page-routing.module';
 import { UsersPageComponent } from './users-page.component';
 import { UsersRegisterComponent } from './users-register/users-register.component';
@@ -43,7 +45,9 @@ import { UsersSearchComponent } from './users-search/users-search.component';
   ],
   providers: [
     ReqService,
-    SingleUserService
+    SingleUserService,
+    CreateService,
+    UpdateService
   ],
   entryComponents: [
     UserComponent

@@ -1,27 +1,29 @@
-<h1 mat-dialog-title>Hi</h1>
-<div mat-dialog-content>
-  <div class="row">
-    <div class="col-lg-12">
-      <mat-form-field appearance="legacy">
-        <mat-label>Nome</mat-label>
-        <input matInput [(ngModel)]="data.first_name">
-        <mat-error *ngIf="data.first_name">
-          Campo obrigatório
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-lg-12">
-      <mat-form-field appearance="legacy">
-        <mat-label>Sobrenome</mat-label>
-        <input matInput [(ngModel)]="data.last_name">
-        <mat-error *ngIf="data.last_name">
-          Campo obrigatório
-        </mat-error>
-      </mat-form-field>
+<form [formGroup]="userForm">
+  <h1 mat-dialog-title>
+    {{data ? 'Atualizar Usuário': 'Adicionar novo Usuário'}}
+  </h1>
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-lg-12">
+        <mat-form-field appearance="legacy">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="userForm.get('name').invalid">
+            Campo obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-12">
+        <mat-form-field appearance="legacy">
+          <mat-label>Trabalho</mat-label>
+          <input matInput formControlName="job">
+        </mat-form-field>
+      </div>
     </div>
   </div>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
-</div>
+  <div mat-dialog-actions>
+    <button mat-raised-button *ngIf="!ctrlButton" (click)="atualizar()" color="primary">Atualizar</button>
+    <button mat-raised-button *ngIf="ctrlButton" (click)="gravar()" color="primary">Adicionar</button>
+    <button mat-raised-button mat-dialog-close color="warn">Não obrigado</button>
+  </div>
+</form>

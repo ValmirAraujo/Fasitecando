@@ -83,15 +83,21 @@ export class UsersSearchComponent implements OnInit {
   }
 
   gravarDialog(): void {
-    const dialogRef = this.dialog.open(UserComponent);
+    const dialogRef = this.dialog.open(UserComponent, { width: '350px' });
     dialogRef.afterClosed().subscribe(result => { });
   }
 
 
   atualizarDialog(item: UserSearch): void {
-    const dialogRef = this.dialog.open(UserComponent, { width: '250px', data: item });
+    const dialogRef = this.dialog.open(UserComponent, { width: '350px', data: item });
 
-    dialogRef.afterClosed().subscribe(result => { });
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        let indice = this.users.indexOf(item);
+        this.users[indice].first_name = data.first_name;
+        this.users[indice].last_name = data.last_name;
+      }
+    });
   }
 
   excluir(item: UserSearch) {
