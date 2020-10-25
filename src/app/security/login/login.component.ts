@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/objects/Login';
-import { ReqService } from 'src/app/services/ReqService';
+import { LoginService } from 'src/app/services/LoginService';
+import { RegisterService } from 'src/app/services/RegisterService';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private reqService: ReqService
+    private loginService: LoginService,
+    private registerService: RegisterService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.formulario.valid) {
       let login: Login = this.formulario.value;
-      this.reqService.login(login).subscribe(res => {
+      this.loginService.login(login).subscribe(res => {
         this.router.navigate(['/paginas/users']);
       },
         erro => alert("Usuário não encontrado!"));
@@ -55,8 +57,12 @@ export class LoginComponent implements OnInit {
 
   registrar() {
     if (this.formulario.valid) {
-      console.log("form: ", this.formulario.value)
-      this.router.navigate(['/paginas/users']);
+      let register: Login = this.formulario.value;
+      this.registerService.register(register).subscribe(res => {
+        alert("Usuário Registrado com sucesso!")
+        this.router.navigate(['/paginas/users']);
+      },
+        erro => alert("Não foi possível realizar a operação."));
     }
   }
 

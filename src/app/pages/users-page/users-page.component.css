@@ -7,6 +7,31 @@
   z-index: 2;
 }
 
+.example-card {
+  max-width: 550px;
+}
+
+.card-center {
+  width: 100%;
+}
+
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.position {
+  position: relative;
+  top: 10px;
+}
+
+.height-container {
+  max-height: 77vh;
+}
+
+.register{
+  text-decoration: none;
+  cursor: pointer;
+  color: #673ab7;
+  display: inline-block;
+  font-size: 20px;
 }

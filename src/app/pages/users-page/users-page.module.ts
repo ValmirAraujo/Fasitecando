@@ -12,20 +12,17 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserComponent } from 'src/app/components/user-update/user.component';
 import { CreateService } from 'src/app/services/CreateService';
-import { ReqService } from 'src/app/services/ReqService';
+import { DeleteService } from 'src/app/services/DeleteService';
+import { ListUsersService } from 'src/app/services/ListUsersService';
 import { SingleUserService } from 'src/app/services/SingleUserService';
 import { UpdateService } from 'src/app/services/UpdateService';
 import { UsersPageRoutingModule } from './users-page-routing.module';
 import { UsersPageComponent } from './users-page.component';
-import { UsersRegisterComponent } from './users-register/users-register.component';
-import { UsersSearchComponent } from './users-search/users-search.component';
 
 
 @NgModule({
   declarations: [
     UsersPageComponent,
-    UsersRegisterComponent,
-    UsersSearchComponent,
     UserComponent
   ],
   imports: [
@@ -44,10 +41,11 @@ import { UsersSearchComponent } from './users-search/users-search.component';
     MatDialogModule
   ],
   providers: [
-    ReqService,
+    ListUsersService,
     SingleUserService,
     CreateService,
-    UpdateService
+    UpdateService,
+    DeleteService
   ],
   entryComponents: [
     UserComponent
