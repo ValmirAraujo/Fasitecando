@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from 'src/app/pages/users-page/users-search/users-search.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserSearch } from 'src/app/objects/UserSearch';
 
 @Component({
   selector: 'app-user-update',
@@ -9,9 +10,12 @@ import { DialogData } from 'src/app/pages/users-page/users-search/users-search.c
 })
 export class UserUpdateComponent implements OnInit {
 
+  registerForm: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<UserUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: UserSearch,
+    public fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {

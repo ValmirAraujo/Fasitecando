@@ -4,11 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { UserUpdateComponent } from 'src/app/components/user-update/user-update.component';
 import { UserSearch } from 'src/app/objects/UserSearch';
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import { ReqService } from 'src/app/services/ReqService';
 
 @Component({
   selector: 'app-users-search',
@@ -30,7 +26,8 @@ export class UsersSearchComponent implements OnInit {
 
   constructor(
     private _snackBar: MatSnackBar,
-    // public dialog: MatDialog
+    public dialog: MatDialog,
+    private reqService: ReqService,
   ) {
     this.form = new FormGroup({
       food: this.searchControl,
@@ -38,19 +35,16 @@ export class UsersSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.reqService.listUsers(1).subscribe(res => {
+      console.log("lis: ", res);
+    })
   }
 
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(UserUpdateComponent, {
-  //     width: '250px',
-  //     data: { name: this.name, animal: this.animal }
-  //   });
+  openDialog(item: UserSearch): void {
+    const dialogRef = this.dialog.open(UserUpdateComponent, { width: '250px', data: item });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     this.animal = result;
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => { });
+  }
 
   excluir(item: UserSearch) {
     console.log("item: ", item);

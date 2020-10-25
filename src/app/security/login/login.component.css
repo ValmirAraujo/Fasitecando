@@ -1,0 +1,16 @@
+.largura{
+    width: 35%;
+}
+.fundo{
+    background-image: url("../../../assets/wallpaperflare.com_wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.register{
+    text-decoration: underline;
+    cursor: pointer;
+    color: #673ab7;
+    display: inline-block;
+}
