@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       this.loginService.login(login).subscribe(res => {
         this.router.navigate(['/paginas/users']);
       },
-        erro => alert("Usuário não encontrado!"));
+        erro => alert("Verifique os dados e tente novamente."));
     }
   }
 
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         alert("Usuário Registrado com sucesso!")
         this.router.navigate(['/paginas/users']);
       },
-        erro => alert("Não foi possível realizar a operação."));
+        erro => alert("Verifique os dados e tente novamente."));
     }
   }
 
